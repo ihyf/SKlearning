@@ -15,6 +15,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import confusion_matrix
 from sklearn.svm import SVC
 
+
 class SVM(object):
     @staticmethod
     def data_preprocessing_template():
