@@ -17,3 +17,4 @@ sklearn==0.0
 statsmodels==0.10.0
 threadpoolctl==2.1.0
 wincertstore==0.2
+numba
