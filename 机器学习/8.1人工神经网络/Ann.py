@@ -20,7 +20,7 @@ class Ann(object):
         data_set = pd.read_csv("Churn_Modelling.csv")
         x = data_set.iloc[:, 3:13].values
         y = data_set.iloc[:, 13].values
-        # 类别数据处理
+        # 分类数据处理
         from sklearn.preprocessing import LabelEncoder, OneHotEncoder
         labelencoder_x_1 = LabelEncoder()
         labelencoder_x_2 = LabelEncoder()
@@ -33,6 +33,13 @@ class Ann(object):
 
         from sklearn.model_selection import train_test_split
         x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=0)
+
+        # 特征缩放
+        from sklearn.preprocessing import StandardScaler
+        sc_x = StandardScaler()
+        x_train = sc_x.fit_transform(x_train)
+        x_test = sc_x.transform(x_test)
+
         return x_train, x_test, y_train, y_test
 
     def ann_function(self):
@@ -43,6 +50,7 @@ class Ann(object):
         # 添加隐藏层
         classifier.add(Dense(units=6, kernel_initializer='uniform', activation='relu', input_dim=11))
         classifier.add(Dense(units=6, kernel_initializer='uniform', activation='relu'))
+        # 添加输出层
         classifier.add(Dense(units=1, kernel_initializer='uniform', activation='sigmoid'))
         # optimizer随机梯度下降所用的算法 adam 损失函数用crossentropy 由于结果为二元 所以用binary_crossentropy metrics 为模型评判指标 accuracy 准确度
         classifier.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
